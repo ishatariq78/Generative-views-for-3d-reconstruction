@@ -1,0 +1,8 @@
+# SEVA 80-frame orbit of ADT1292__chair (exp1) fed to KV-Tracker as a TUM-style scene: rgb/000..079.png.
+datasource: TUMLoader
+que_size: -1
+offset: 0
+use_bbox: -1
+export_masked_imgs: False
+results_path: /home/isha.tariq/stable_virtual_camera/exp5/outputs/ADT1292__chair__kf10
+scene_dir: /home/isha.tariq/stable_virtual_camera/exp5/inputs/ADT1292__chair

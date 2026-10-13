@@ -1,0 +1,7 @@
+[
+  {"name": "ADT1292__chair",       "elevation": 25.0, "caption": "Four thin legs supporting a square seat"},
+  {"name": "BNB1045__sofa",        "elevation": 25.0, "caption": "Long sofa with multiple cushions and a backrest"},
+  {"name": "BNB1723__bed",         "elevation": 30.0, "caption": "Large rectangular bed with a flat surface"},
+  {"name": "ADT1292__woodentable", "elevation": 30.0, "caption": "Rectangular wooden table with a flat top"},
+  {"name": "BNB2727__bench",       "elevation": 20.0, "caption": "Ornate bench with carved high backrest"}
+]

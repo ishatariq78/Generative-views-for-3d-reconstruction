@@ -1,0 +1,6 @@
+object,input_arc_true_deg,input_arc_as_first_recorded_deg,orbit_iou_mean,orbit_iou_min,masker_ceiling_iou,share_of_ceiling,area_ratio_mean,frames_over_1_5x_area
+ADT1292__chair,132.8,216.4,0.751,0.6746,0.8242,0.91,1.048,0
+BNB1045__sofa,93.4,93.5,0.8512,0.7067,0.9562,0.89,1.069,0
+BNB1723__bed,81.1,81.1,0.8481,0.7258,0.9347,0.91,1.035,0
+ADT1292__woodentable,108.7,108.7,0.8007,0.7071,0.8585,0.93,0.917,0
+BNB2727__bench,102.4,200.3,0.7883,0.6516,0.9159,0.86,0.948,0

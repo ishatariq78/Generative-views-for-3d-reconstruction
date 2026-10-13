@@ -1,0 +1,9 @@
+# SEVA 80-frame orbit of BNB1045__sofa fed to KV-Tracker, keyframe every frame (KVT_KEEP_LAST_PCD=1 so
+# only the newest cumulative PLY is kept).
+datasource: TUMLoader
+que_size: -1
+offset: 0
+use_bbox: -1
+export_masked_imgs: False
+results_path: /home/isha.tariq/stable_virtual_camera/exp5/outputs/BNB1045__sofa__kf1
+scene_dir: /home/isha.tariq/stable_virtual_camera/exp5/inputs/BNB1045__sofa
