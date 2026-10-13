@@ -45,6 +45,11 @@ Paired over objects, seeds averaged within each object (`results/D_views_into_sh
 
 ### Qualitative examples
 
+<img src="../assets/orbits_155_sample.jpg" width="100%" alt="Ten of the 155 orbits with their results">
+
+Hand-picked to show gains and losses; the coffee-machine orbit is a visible generation failure.
+
+
 <img src="../assets/gallery_shaper_views.jpg" width="100%" alt="Success, CD/F1 disagreement and regression">
 
 The meshes come from a separate **seed-0 re-run** saved with meshes (`outputs_sub/meshes24/per_object/`). Its metrics differ from the scored seed-0 run by up to 0.06 CD, because the kernels are not bit-deterministic. Each panel prints its own run's numbers next to the 3-seed mean. Single runs can disagree with the mean: in the armchair's seed-0 run F1 drops (0.357 → 0.318), while over 3 seeds it rises (0.373 → 0.399). Within-object seed variation can exceed the effect itself. `ADT1292__nightstand` has ΔCD +0.01 in its seed-0 mesh run and −1.23 in its 3-seed mean.

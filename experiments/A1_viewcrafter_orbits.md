@@ -57,6 +57,8 @@ Cutting the object out stopped the object being *replaced* by scene content (exp
 
 Camera paths (3 objects, `experiment5/outputs/measurements.json`): mean worst-frame coverage is `low` 0.362, `wobble` 0.290, `level` 0.286, `helix` 0.263, `high` 0.260, `dolly` 0.226. The gap to not going all the way round (±45°: 0.56–0.66) is larger than the whole spread across paths, and no path wins on every object.
 
+<img src="../assets/gifs/viewcrafter_vs_seva.gif" width="100%" alt="Animated ViewCrafter 360, plus-minus 45 and SEVA on the sofa">
+
 <img src="../assets/full_orbit_vs_sweep.jpg" width="100%" alt="ViewCrafter 360, ViewCrafter plus-minus 45 and SEVA 360 on the sofa">
 
 What these orbits reconstruct to in 3D, including the 3- and 8-view conditions, is in [C1](C1_video_to_3d.md#results). Scored against the SLAM points, the ±45° sweep (0.660) reaches more of the measured surface than any 360° ViewCrafter orbit (0.381–0.652).

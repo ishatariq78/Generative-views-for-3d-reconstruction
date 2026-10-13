@@ -492,7 +492,126 @@ def fig_observability():
     save(vcat([head, crop], 4), "observed_vs_unseen.jpg")
 
 
-FIGS = {"observe": fig_observability, "teaser": fig_teaser, "gif": fig_orbit_gif, "sweep": fig_full_vs_limited, "false": fig_false_content,
+def fig_mesh_conditions():
+    """Same object, every input condition, one camera. Seed-0 meshes and their own JSONs."""
+    md = S2S / "outputs/seeded/s0/per_object"
+    conds = [("slam", "Real only", C_REAL), ("pi3", "Orbit as points", C_PTS), ("gap1", "+ gap-fill points", C_PTS),
+             ("views", "+ generated views", C_VIEWS), ("vonly", "Generated views only", C_VIEWS)]
+    rows = []
+    for obj, title in (("BNB1182__stool", "Points and +views help; generated-only hurts"), ("HWD0045__woodentable", "Points regress strongly; +views slightly worse")):
+        ref = load_mesh(md / f"GT__{obj}__slam.glb")
+        fr = frame_of(ref)
+        tiles = [labelled(render(ref, C_REF, fr, n=250), "Reference", None, C_REF, n=250)]
+        for c, lab, col in conds:
+            cd, f1 = metrics(md / f"{obj}__{c}.json")
+            tiles.append(labelled(render(load_mesh(md / f"{obj}__{c}.glb"), col, fr, n=250), lab, mline(cd, f1), col, n=250))
+        strip = hcat(tiles, 8)
+        rows.append(vcat([heading(f"{title}  -  {obj}", strip.shape[1]), strip], 0))
+    head = heading("Every ShapeR input condition on the same object, same camera",
+                   rows[0].shape[1], "16 views. Orange = generated orbit used as 3D points (C2); blue = used as images (D1). Seed-0 run per mesh; 3-seed means in results/.")
+    save(vcat([head] + rows, 14), "mesh_conditions.jpg")
+
+
+def fig_conditions_heatmap():
+    """Per-object paired change in CD for all ten conditions at 16 views (3-seed means)."""
+    rows = list(csv.DictReader(open(RES / "C_points_into_shaper_6obj.csv"))) + list(csv.DictReader(open(RES / "D_views_into_shaper_6obj.csv")))
+    conds = ["pi3", "kv", "union", "gap1", "gap4", "views", "vonly", "vg80", "v80", "vgap"]
+    names = ["pi3 pts", "KV pts", "SLAM+pi3", "gap-fill 1x", "gap-fill 4x", "+16 gen", "16 gen only", "+80 gen", "80 gen only", "+16 gen\n+gap-fill"]
+    objs = sorted({r["object"] for r in rows})
+    M = {(r["object"], r["condition"]): r for r in rows}
+    D = np.array([[float(M[(o, c)]["d_cd"]) for c in conds] for o in objs])
+    F = np.array([[float(M[(o, c)]["d_f1"]) for c in conds] for o in objs])
+    from matplotlib.colors import LinearSegmentedColormap, TwoSlopeNorm
+    cmap = LinearSegmentedColormap.from_list("div", [C_GOOD, "#f0efec", C_BAD])
+    fig, ax = plt.subplots(figsize=(12.4, 4.6))
+    im = ax.imshow(np.clip(D, -3, 3), cmap=cmap, norm=TwoSlopeNorm(0, -3, 3), aspect="auto")
+    for i in range(len(objs)):
+        for j in range(len(conds)):
+            ax.text(j, i, f"{D[i, j]:+.2f}\n{F[i, j]:+.3f}", ha="center", va="center", fontsize=8,
+                    color="white" if abs(D[i, j]) > 1.8 else INK)
+    ax.set_xticks(range(len(conds))); ax.set_xticklabels(names, fontsize=9)
+    ax.set_yticks(range(len(objs))); ax.set_yticklabels(objs, fontsize=9)
+    ax.axvline(4.5, color="white", lw=4)
+    ax.text(2, -0.85, "Pathway 1 -> ShapeR: generated orbit as POINTS (C2)", ha="center", fontsize=10, color=C_PTS)
+    ax.text(7, -0.85, "Pathway 2: generated orbit as IMAGES (D1)", ha="center", fontsize=10, color=C_VIEWS)
+    ax.grid(False)
+    for sp in ax.spines.values():
+        sp.set_visible(False)
+    cb = fig.colorbar(im, ax=ax, fraction=0.025, pad=0.01); cb.set_label("change in CD x10^2 (clipped at +-3)", fontsize=9)
+    fig.suptitle("Results at a glance: paired change vs real-only, per object (cell: dCD over dF1; blue = better CD)",
+                 x=0.01, ha="left", fontsize=12, color=INK)
+    fig.text(0.01, 0.01, "6 objects, 16 views, mean of 3 seeds per cell. Sources: results/C_points_into_shaper_6obj.csv, D_views_into_shaper_6obj.csv.",
+             fontsize=8.5, color=MUTED)
+    fig.tight_layout(rect=(0, 0.03, 1, 0.92))
+    fig.savefig(A / "chart_conditions_6obj.png", dpi=110); plt.close(fig)
+    print("wrote assets/chart_conditions_6obj.png")
+
+
+def fig_vc_vs_seva_gif():
+    """Sofa: ViewCrafter 360, ViewCrafter +-45, SEVA 360 (every 80/25-th aligned), animated."""
+    obj = "BNB1045__sofa"
+    vc360 = video_frames(VC / f"experiment2/outputs/{obj}__cutout__orbit360/diffusion0.mp4", 25)
+    vc45 = video_frames(VC / f"experiment2/outputs/{obj}__cutout__orbit45/diffusion0.mp4", 25)
+    sv = [np.asarray(Image.open(f).convert("RGB")) for f in orbit_frames(SV / "exp1/outputs/demo/img2trajvid", obj, 25)]
+    labs = [("ViewCrafter, 1 view, 360 deg", C_PTS), ("ViewCrafter, 1 view, +-45 deg", C_REAL), ("SEVA, 8 views, 360 deg", C_VIEWS)]
+    frames = []
+    for k in range(25):
+        tiles = [labelled(tile_rect(seq[k], 300, 200 if i < 2 else 200), lab, None, col, n=300)[:230]
+                 for i, (seq, (lab, col)) in enumerate(zip((vc360, vc45, sv), labs))]
+        frames.append(Image.fromarray(hcat(tiles, 8)).quantize(colors=160, method=Image.Quantize.MEDIANCUT))
+    p = A / "gifs/viewcrafter_vs_seva.gif"
+    frames[0].save(p, save_all=True, append_images=frames[1:], duration=160, loop=0, optimize=True)
+    print("wrote", p.relative_to(REPO), frames[0].size, f"{p.stat().st_size / 1e3:.0f} kB")
+
+
+def fig_orbits_155():
+    """Ten of the 155 objects: one real cut-out input next to three generated orbit frames."""
+    R = {r["object"]: r for r in csv.DictReader(open(RES / "D_views_into_shaper_155obj.csv"))}
+    objs = ["BNB1045__nightstand_3", "BNB2909__chair", "BNB2909__kettle", "HWD0045__washingmachine", "BNB1045__desklamp",
+            "HWD0045__ottoman", "HWD0045__robotvacuum", "ADT1292__coffeemachine", "BNB1045__heater", "BNB1182__sidetable"]
+    cells = []
+    for o in objs:
+        ins = sorted((S2S / "inputs_full" / o / "images").glob("*.png"))
+        gen = orbit_frames(S2S / "outputs_full/demo/img2trajvid", o, 4)[1:]
+        r = R[o]
+        d = float(r["d_cd"])
+        tiles = [labelled(tile_img(ins[0], 150), "real input", None, INK, n=150)] + \
+                [labelled(tile_img(g, 150), "generated" if i == 0 else "", None, C_VIEWS, n=150) for i, g in enumerate(gen)]
+        strip = hcat(tiles, 4)
+        sub = f"ShapeR dCD {d:+.2f}, dF1 {float(r['d_f1']):+.3f} (3-seed mean)"
+        cells.append(vcat([heading(o, strip.shape[1], sub), strip], 0))
+    rows = [hcat(cells[i:i + 2], 30) for i in range(0, len(cells), 2)]
+    head = heading("A sample of the 155 generated orbits (D2), with each object's own paired result",
+                   rows[0].shape[1], "Chosen to show gains (blue in the charts) and losses side by side; not a random sample. 24-view budget.")
+    save(vcat([head] + rows, 12), "orbits_155_sample.jpg", quality=84)
+
+
+def fig_selection_chart():
+    R = list(csv.DictReader(open(RES / "D_frame_selection_pilot.csv")))
+    labs = [("B", "uniform", C_REAL), ("C", "random", INK2), ("D", "reliability", C_VIEWS), ("E", "diversity", C_PTS)]
+    o = sorted(R, key=lambda r: float(r["B_cd"]) - float(r["A_cd"]))
+    fig, ax = plt.subplots(figsize=(11.5, 4.4))
+    ax.axhline(0, color=MUTED, lw=1)
+    x = np.arange(len(o))
+    for k, (c, lab, col) in enumerate(labs):
+        y = [float(r[f"{c}_cd"]) - float(r["A_cd"]) for r in o]
+        ax.scatter(x + (k - 1.5) * 0.16, np.clip(y, -1.5, 1.5), s=34, color=col, edgecolors="white", linewidths=1, label=lab, zorder=3)
+    ax.set_xticks(x); ax.set_xticklabels([r["object"].replace("__", " ") for r in o], fontsize=8, rotation=35, ha="right")
+    ax.set_ylabel("change in CD x10^2 vs 24 real views")
+    ax.set_ylim(-1.6, 1.6)
+    ax.legend(ncol=4, loc="lower right", fontsize=9, title="9 generated frames chosen by", title_fontsize=9)
+    ax.grid(axis="x", visible=False)
+    fig.suptitle("Frame-selection pilot: which 9 generated frames replace 9 real ones barely matters (16 objects, 3 seeds; clipped at +-1.5)",
+                 x=0.01, ha="left", fontsize=11.5, color=INK)
+    fig.text(0.01, 0.01, "Each object's four selection rules sit close together, while objects differ widely. Source: results/D_frame_selection_pilot.csv.",
+             fontsize=8.5, color=MUTED)
+    fig.tight_layout(rect=(0, 0.04, 1, 0.93))
+    fig.savefig(A / "chart_selection_pilot.png", dpi=110); plt.close(fig)
+    print("wrote assets/chart_selection_pilot.png")
+
+
+FIGS = {"meshcond": fig_mesh_conditions, "heat": fig_conditions_heatmap, "vcgif": fig_vc_vs_seva_gif,
+        "o155": fig_orbits_155, "sel": fig_selection_chart, "observe": fig_observability, "teaser": fig_teaser, "gif": fig_orbit_gif, "sweep": fig_full_vs_limited, "false": fig_false_content,
         "clouds": fig_clouds, "chart3d": fig_video_to_3d_chart, "budget": fig_budget_chart, "c155": fig_155_chart,
         "gallery": fig_gallery}
 

@@ -65,6 +65,10 @@ CD ×10² / F1, mean of 3 seeds (`results/C_points_into_shaper_6obj.csv`, from `
 | **mean paired change** | — | +1.80 / −0.122 | +2.71 / −0.137 | +0.99 / −0.080 | +0.59 / −0.038 | +0.97 / −0.063 |
 | **objects CD better** | — | 2 / 6 | 2 / 6 | 3 / 6 | 3 / 6 | 3 / 6 |
 
+<img src="../assets/chart_conditions_6obj.png" width="100%" alt="Change in CD and F1 for every condition on six objects">
+
+<img src="../assets/mesh_conditions.jpg" width="100%" alt="Meshes for each condition on a stool and a wooden table">
+
 **Replication on 9 more objects** (`results/C_kv_points_into_shaper_subset.csv`, from `outputs_sub/kvseeded/`; KV-Tracker points replace SLAM points at a 24-view budget, 3 seeds): mean ΔCD **+1.63** (SE 0.65), ΔF1 −0.17, CD better on **2 of 9** (`BNB1045__nightstand_2` −0.51, `BNB1723__chair` −0.56). A tenth object (`BNB2727__lighting_2`) could not be placed: camera RMS was 183% of the diagonal, so no points landed in the box (`outputs_sub/kvtest_placement.json`).
 
 ## Interpretation

@@ -56,6 +56,8 @@ CD ×10² / F1, mean of 3 seeds (`results/D_views_into_shaper_6obj.csv`):
 | **mean paired change** | — | +0.11 / −0.010 | +1.02 / −0.110 | +1.24 / −0.064 | +1.43 / −0.111 | +0.66 / −0.018 |
 | **objects CD better** | — | 3 / 6 | 1 / 6 | 2 / 6 | 1 / 6 | 3 / 6 |
 
+The heatmap and mesh comparison for these conditions are in [C2](C2_points_into_shaper.md#results) (right half of the heatmap = this page).
+
 Generated-only input is worse than real-only on 5 of 6 objects. The real views carry information the generated ones do not, even when the real views are partial.
 
 The bar stool is the object whose orbit **failed as points** in C2 (CD 2.36 → 7.43). **As images**, the same orbit improves it in every condition (→ 1.65). See the [teaser](../README.md).

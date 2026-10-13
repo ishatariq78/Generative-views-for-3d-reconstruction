@@ -99,6 +99,9 @@ At 8 views the same intervention hurts (ΔCD +1.00, 1/6 objects better), because
 
 ## Gallery
 
+<p align="center"><img src="assets/gifs/viewcrafter_vs_seva.gif" width="100%" alt="Animated: ViewCrafter 360 orbit, ViewCrafter plus-minus 45 sweep, SEVA 360 orbit of the same sofa"></p>
+<sub>Same sofa, played together. Single-view ViewCrafter loses the object on a full turn; its ±45° sweep stays on it; SEVA, given 8 posed views, keeps it all the way round ([A1](experiments/A1_viewcrafter_orbits.md), [A2](experiments/A2_seva_orbits.md)).</sub>
+
 <p align="center"><img src="assets/gifs/seva_orbits.gif" width="100%" alt="Five SEVA 360-degree object orbits: chair, sofa, bed, wooden table, bench"></p>
 <sub>SEVA orbits from 8 posed cut-out views each (every 4th of 80 frames). Chair, sofa, bed, wooden table, bench.</sub>
 
@@ -112,6 +115,15 @@ At 8 views the same intervention hurts (ΔCD +1.00, 1/6 objects better), because
 
 <p align="center"><img src="assets/gallery_shaper_views.jpg" width="100%" alt="ShapeR meshes with and without generated views: a success, a CD/F1 disagreement, and a regression"></p>
 <sub>Pathway 2 at 24 views: a success, a run where CD improves while F1 worsens, and a regression. The numbers on each panel belong to that mesh (seed 0). The 3-seed mean is printed beside it, because single runs vary: the armchair's F1 drop is not in its mean ([D2](experiments/D2_views_at_scale.md#qualitative-examples)).</sub>
+
+<p align="center"><img src="assets/chart_conditions_6obj.png" width="100%" alt="Heatmap of change in CD and F1 for ten input conditions on six objects"></p>
+<sub>Results at a glance: every ShapeR input condition on the 6-object set. Using the orbit as points (left) mostly hurts; as images (right) it is mixed and object-dependent ([C2](experiments/C2_points_into_shaper.md), [D1](experiments/D1_views_into_shaper.md)).</sub>
+
+<p align="center"><img src="assets/mesh_conditions.jpg" width="100%" alt="ShapeR meshes for each input condition on a stool and a wooden table"></p>
+<sub>The same comparison as meshes, one camera, seed 0. The wooden table already had 7 628 accurate SLAM points, so replacing them with orbit points thickens the top and legs ([C2](experiments/C2_points_into_shaper.md)).</sub>
+
+<p align="center"><img src="assets/orbits_155_sample.jpg" width="85%" alt="Ten of the 155 objects: a real input view next to three generated orbit frames, with each object's ShapeR result"></p>
+<sub>Ten of the 155 generated orbits beside their real input. The coffee machine's orbit visibly breaks apart, a generation failure, and that object regresses. Hand-picked to show both directions, so not a random sample ([D2](experiments/D2_views_at_scale.md)).</sub>
 
 | Real + generated views at a 24-view budget, 155 objects | View budget, 6 objects |
 |---|---|

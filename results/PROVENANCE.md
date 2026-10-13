@@ -33,4 +33,9 @@ Every headline number, with the file it comes from. Paths are on the cluster (`~
 | `assets/clouds_vggt_pi3_kv.png` | `exp5/outputs/<obj>__{seva360f,seva360fp,seva360fk1}__aligned_to_slam.npz`; SLAM points from the benchmark pkl | per object × reconstructor from `C_video_to_3d_per_object.csv` |
 | `assets/chart_video_to_3d.png` | `results/C_video_to_3d_*.csv` | condition means, per-object dots |
 | `assets/chart_view_budget.png`, `chart_155_paired.png` | `results/D_view_budget_6obj.csv`, `D_views_into_shaper_155obj.csv`, `summary.json` | aggregates labelled as such |
+| `assets/gifs/viewcrafter_vs_seva.gif` | same sources as `full_orbit_vs_sweep.jpg`, all 25 ViewCrafter frames and 25 evenly spaced of SEVA's 80 | none |
+| `assets/chart_conditions_6obj.png` | `results/C_points_into_shaper_6obj.csv`, `D_views_into_shaper_6obj.csv` | per-object 3-seed means |
+| `assets/mesh_conditions.jpg` | `seva_to_shaper/outputs/seeded/s0/per_object/{GT__,}<obj>__<cond>.glb` + `.json` | each mesh's own seed-0 JSON |
+| `assets/orbits_155_sample.jpg` | `seva_to_shaper/inputs_full/<obj>/images/000.png`, `outputs_full/demo/img2trajvid/<obj>/samples-rgb` | 3-seed mean from `D_views_into_shaper_155obj.csv` |
+| `assets/chart_selection_pilot.png` | `results/D_frame_selection_pilot.csv` | 3-seed means |
 | `assets/gallery_shaper_views.jpg` | `seva_to_shaper/outputs_sub/meshes24/per_object/` (seed-0 re-run with meshes) + `outputs_full/demo/img2trajvid` | each panel: that mesh's own JSON; row subtitle adds the 3-seed mean from `D_views_into_shaper_155obj.csv` |

@@ -34,6 +34,8 @@ All 16 objects, mean of 3 seeds (`results/D_frame_selection_pilot.csv`, `results
 
 Condition means, CD / F1: A 3.463 / 0.669 · B 3.376 / 0.661 · C 3.307 / 0.666 · D 3.299 / 0.659 · E 3.375 / 0.659.
 
+<img src="../assets/chart_selection_pilot.png" width="100%" alt="Per-object change in CD for four frame-selection rules">
+
 ## Interpretation
 
 No selection rule separates from the others. Reliability scoring is no better than random. Swapping 9 real frames for 9 generated ones (B vs A) is neutral on average but varies widely per object: `BNB1045__nightstand_3` 5.45 → 2.20, `BNB1045__heater` 2.01 → 2.91.
