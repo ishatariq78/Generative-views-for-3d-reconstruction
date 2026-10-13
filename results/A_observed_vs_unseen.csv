@@ -1,0 +1,6 @@
+object,input_views,surface_observed_fraction,orbit_frames_mostly_unobserved_of_80,orbit_unobserved_fraction_mean
+ADT1292__chair,8,0.6147,0,0.0866
+BNB1045__sofa,8,0.3132,38,0.4797
+BNB1723__bed,8,0.2577,28,0.4444
+ADT1292__woodentable,8,0.3863,32,0.4504
+BNB2727__bench,8,0.5606,24,0.244

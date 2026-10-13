@@ -1,0 +1,11 @@
+object,condition,frames_scored,copied,reconstructed,invented
+ADT1292__chair,one_view,80,0,76,4
+ADT1292__chair,all_views,80,79,0,1
+ADT1292__woodentable,one_view,80,0,77,3
+ADT1292__woodentable,all_views,80,80,0,0
+BNB1045__sofa,one_view,80,2,54,24
+BNB1045__sofa,all_views,80,80,0,0
+BNB1723__bed,one_view,80,0,80,0
+BNB1723__bed,all_views,80,80,0,0
+BNB2727__bench,one_view,80,0,67,13
+BNB2727__bench,all_views,80,55,25,0

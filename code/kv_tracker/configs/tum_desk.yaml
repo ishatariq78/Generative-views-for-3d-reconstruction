@@ -1,0 +1,11 @@
+# TUM freiburg1_desk, camera-only tracking. Known-answer test: groundtruth.txt is
+# in the scene folder, so the trajectory KV-Tracker writes can be scored with evo.
+datasource: TUMLoader
+que_size: -1
+
+offset: 0
+use_bbox: -1
+export_masked_imgs: False
+
+results_path: /home/isha.tariq/kv_tracker_testing/outputs/tum_desk
+scene_dir: datasets/tum_rgbd/rgbd_dataset_freiburg1_desk

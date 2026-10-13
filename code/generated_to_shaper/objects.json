@@ -1,0 +1,9 @@
+[
+  {"name": "BNB1045__wovenstool",  "kind": "stool", "note": "the requested object; 300 SLAM points, benchmark F1 0.516"},
+  {"name": "BNB1045__barstool",    "kind": "stool", "note": "407 SLAM points, benchmark F1 0.695"},
+  {"name": "BNB1182__stool",       "kind": "stool", "note": "706 SLAM points, benchmark F1 0.765"},
+  {"name": "BNB2727__stool",       "kind": "stool", "note": "1277 SLAM points, benchmark F1 0.758"},
+  {"name": "BNB1182__sidetable",   "kind": "table", "note": "445 SLAM points, benchmark F1 0.767"},
+  {"name": "HWD0045__desktable",   "kind": "table", "note": "1710 SLAM points, benchmark F1 0.896 but CD 3.35"},
+  {"name": "HWD0045__woodentable", "kind": "table", "note": "7628 SLAM points (densest), benchmark F1 0.534"}
+]
