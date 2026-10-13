@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+
+# Model weights and checkpoints
+*.ckpt
+*.pth
+*.pt
+*.safetensors
+*.bin
+checkpoints/
+ckpts/
+
+# Datasets and raw experiment outputs (kept in the original workspaces, see results/README.md)
+*.pkl
+*.npz
+*.npy
+*.ply
+*.glb
+*.obj
+*.mp4
+data/
+outputs*/
+work_dirs*/
+inputs*/
+logs/
+cache/
+third_party/
+
+# Credentials and local config
+.env
+*.token
+.netrc
+.huggingface/
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
